@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Photo Gallery</title>
+
+<style> *{ margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI',sans-serif; } body{ background:#f4f8ff; } .navbar{ background:linear-gradient( 135deg, #0078D4, #00A4EF ); display:flex; justify-content:space-between; align-items:center; padding:20px 40px; } .logo{ color:white; font-size:24px; font-weight:bold; } .nav-links a{ color:white; text-decoration:none; margin-left:25px; font-size:18px; } .page-header{ text-align:center; padding:40px; } .page-header h1{ color:#0078D4; font-size:50px; } .page-header p{ font-size:20px; } .gallery{ width:90%; margin:auto; display:grid; grid-template-columns:repeat(2,1fr); gap:30px; margin-bottom:40px; } .photo-card{ background:white; border-radius:20px; overflow:hidden; box-shadow:0 6px 20px rgba(0,0,0,.1); transition:.3s; } .photo-card:hover{ transform:translateY(-5px); } .photo-card img{ width:100%; height:300px; object-fit:cover; display:block; } .card-content{ padding:20px; } .card-content h3{ margin-bottom:15px; } .likes{ font-size:20px; margin-bottom:15px; } .like-btn{ background:#ff4d6d; color:white; border:none; padding:12px 20px; border-radius:10px; cursor:pointer; } .comment-section{ margin-top:20px; } .commentInput{ width:100%; padding:12px; border:1px solid #ccc; border-radius:10px; } .comment-btn{ margin-top:10px; background:#0078D4; color:white; border:none; padding:12px 20px; border-radius:10px; cursor:pointer; } .comments{ margin-top:10px; } .comments p{ background:#eef4ff; padding:10px; margin-top:5px; border-radius:8px; } @media(max-width:900px){ .gallery{ grid-template-columns:1fr; } } </style>
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+<div class="logo">
+📸 PhotoShare AI
+</div>
+
+<div class="nav-links">
+
+<a href="index.html">Dashboard</a>
+<a href="upload.html">Upload</a>
+<a href="gallery.html">Gallery</a>
+
+</div>
+
+</nav>
+
+
+
+<div class="page-header">
+
+<h1>📸 Photo Gallery</h1>
+
+<p>
+View uploaded photos,like and comment them
+</p>
+
+</div>
+
+
+
+<div class="gallery" id="gallery"></div>
+
+
+
+<script>
+
+
+const GALLERY_API_URL =
+"https://gallery-api-v2-erbyawdpcbcfhkgw.centralindia-01.azurewebsites.net/api/getphotos";
+
+
+const LIKE_API_URL =
+"https://photo-likes-api-v2-cna7ara5ecgedtgt.centralindia-01.azurewebsites.net/api/like-photo";
+
+
+async function loadPhotos(){
+
+    try {
+
+        const response = await fetch(GALLERY_API_URL);
+
+        const photos = await response.json();
+
+        console.log("Photos:", photos);
+
+
+        const gallery = document.getElementById("gallery");
+
+
+        photos.forEach(photo => {
+
+
+            const card = document.createElement("div");
+
+
+            card.className = "photo-card";
+
+
+            // save Cosmos document id
+            card.dataset.photoid = photo.id;
+
+
+            card.innerHTML = `
+
+    <img src="${photo.imageUrl}">
+
+    <div class="card-content">
+
+        <h3>${photo.fileName}</h3>
+
+        <p class="likes">
+            ❤️ ${photo.likes || 0} Likes
+        </p>
+
+        <button
+            class="like-btn"
+            onclick="likePhoto(this)">
+            ❤️ Like
+        </button>
+
+        <div class="comment-section">
+
+            <input
+                type="text"
+                class="commentInput"
+                placeholder="Write a comment...">
+
+            <button
+                class="comment-btn"
+                onclick="addComment(this)">
+                💬 Add Comment
+            </button>
+
+            <div class="comments">
+
+                ${
+                    (photo.comments || [])
+                    .map(c => `<p>💬 ${c}</p>`)
+                    .join("")
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+    `;
+
+            
+
+
+            gallery.appendChild(card);
+
+
+        });
+
+
+    }
+    catch(error){
+
+        console.error("Gallery error:", error);
+
+    }
+
+}
+
+
+
+async function likePhoto(button) {
+
+
+    const card = button.closest(".photo-card");
+
+
+    const photoId = card.dataset.photoid;
+
+
+    console.log("Sending ID:", photoId);
+
+
+    const response = await fetch(
+        LIKE_API_URL,
+        {
+            method:"POST",
+
+            headers:{
+                "Content-Type":"application/json"
+            },
+
+            body:JSON.stringify({
+                photoId: photoId
+            })
+        }
+    );
+
+
+    const result = await response.json();
+
+
+    console.log(result);
+
+
+    card.querySelector(".likes").innerHTML =
+    `❤️ ${result.likes} Likes`;
+
+}
+
+
+
+function addComment(button){
+
+    const section = button.parentElement;
+
+    const input = section.querySelector(".commentInput");
+
+    const comments = section.querySelector(".comments");
+
+    if(input.value.trim() === "")
+        return;
+
+    comments.innerHTML += `<p>💬 ${input.value}</p>`;
+
+    input.value = "";
+
+}
+
+
+   
+
+
+
+
+
+loadPhotos();
+
+
+
+</script>
+
+
+</body>
+
+</html>

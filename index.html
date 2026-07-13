@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>PhotoShare Dashboard</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#f4f8ff;
+}
+
+/* Navbar */
+
+.navbar{
+    background:linear-gradient(
+        135deg,
+        #0078D4,
+        #00A4EF
+    );
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    padding:20px 40px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
+}
+
+.logo{
+    color:white;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+    font-size:18px;
+}
+
+/* Hero */
+
+.hero{
+    background:linear-gradient(
+        135deg,
+        #0078D4,
+        #00A4EF
+    );
+
+    color:white;
+    text-align:center;
+
+    padding:60px 20px;
+}
+
+.hero h1{
+    font-size:55px;
+}
+
+.hero p{
+    margin-top:15px;
+    font-size:20px;
+}
+
+
+/* Azure Section */
+
+.section{
+    width:90%;
+    margin:40px auto;
+}
+
+.section h2{
+    margin-bottom:20px;
+    color:#0078D4;
+}
+
+.services{
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.service-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+
+    text-align:center;
+
+    box-shadow:
+    0 5px 15px rgba(0,0,0,.1);
+}
+
+.service-card:hover{
+    background:#eef7ff;
+}
+
+
+/* Workflow */
+
+.workflow{
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    justify-content:center;
+}
+
+.step{
+    background:#0078D4;
+    color:white;
+
+    padding:15px 20px;
+
+    border-radius:12px;
+}
+
+
+/* Buttons */
+
+.actions{
+    text-align:center;
+    margin-top:25px;
+}
+
+.btn{
+    background:#0078D4;
+    color:white;
+    border:none;
+
+    padding:14px 25px;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    margin:10px;
+}
+
+.btn:hover{
+    background:#005ea6;
+}
+
+
+/* Footer */
+
+footer{
+    margin-top:50px;
+    background:#0078D4;
+    color:white;
+
+    text-align:center;
+
+    padding:20px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<nav class="navbar">
+
+<div class="logo">
+📸 PhotoShare AI
+</div>
+
+
+<div class="nav-links">
+
+<a href="index.html">Dashboard</a>
+
+<a href="upload.html">Upload</a>
+
+<a href="gallery.html">Gallery</a>
+
+</div>
+
+</nav>
+
+
+
+<section class="hero">
+
+<h1>📸 PhotoShare AI</h1>
+
+<p>
+Azure Powered Intelligent Photo Processing Platform
+</p>
+
+</section>
+
+
+
+<section class="section">
+
+<h2>☁ Azure Services Used</h2>
+
+
+<div class="services">
+
+
+<div class="service-card">
+📂
+<h3>Blob Storage</h3>
+<p>Store Photos</p>
+</div>
+
+
+<div class="service-card">
+🚌
+<h3>Service Bus</h3>
+<p>Queue Processing</p>
+</div>
+
+
+<div class="service-card">
+⚡
+<h3>Azure Function</h3>
+<p>Thumbnail Generation</p>
+</div>
+
+
+<div class="service-card">
+🌐
+<h3>Cosmos DB</h3>
+<p>Metadata Storage</p>
+</div>
+
+
+<div class="service-card">
+📧
+<h3>Logic App</h3>
+<p>Notifications</p>
+</div>
+
+
+<div class="service-card">
+📈
+<h3>App Insights</h3>
+<p>Monitoring</p>
+</div>
+
+
+</div>
+
+</section>
+
+
+
+
+<section class="section">
+
+<h2>🚀 User Journey Flow</h2>
+
+
+<div class="workflow">
+
+
+<div class="step">📂 Blob Storage</div>
+
+<div class="step">🚌 Service Bus</div>
+
+<div class="step">⚡ Azure Function</div>
+
+<div class="step">🖼 Thumbnail</div>
+
+<div class="step">🌐 Cosmos DB</div>
+
+<div class="step">📧 Logic App</div>
+
+
+</div>
+
+</section>
+
+
+
+
+
+<section class="section">
+
+
+<div class="actions">
+
+
+<a href="upload.html">
+<button class="btn">
+⬆ Upload Photo
+</button>
+</a>
+
+
+<a href="gallery.html">
+<button class="btn">
+🖼 Open Gallery
+</button>
+</a>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<footer>
+
+PhotoShare AI • Azure Blob Storage • Service Bus • Azure Functions • Cosmos DB • Logic Apps
+
+</footer>
+
+
+</body>
+
+</html>
